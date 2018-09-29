@@ -3,12 +3,10 @@ module.exports = {
     title: 'Gatsby + Netlify CMS Starter',
   },
   plugins: [{
-      resolve: `gatsby-plugin-nprogress`,
+      resolve: 'gatsby-plugin-nprogress',
       options: {
-        // Setting a color is optional.
-        color: `tomato`,
-        // Disable the loading spinner.
-        showSpinner: false,
+        color: 'tomato',
+        showSpinner: true,
       },
     }, 'gatsby-plugin-react-helmet', 'gatsby-plugin-sass', {
       resolve: 'gatsby-source-filesystem',
