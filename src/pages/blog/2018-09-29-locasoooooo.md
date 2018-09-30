@@ -1,9 +1,17 @@
 ---
 templateKey: blog-post
-title: queeeeeeeeeeeee
-date: 2018-09-29T16:53:09.029Z
+title: Test de Blog
+image: /img/chemex.jpg
+date: 2018-09-13T16:53:09.029Z
 description: wooooooo
 tags:
   - new
 ---
-https://upica.netlify.com/admin/#/collections/blog/newhttps://upica.netlify.com/admin/#/collections/blog/newhttps://upica.netlify.com/admin/#/collections/blog/newhttps://upica.netlify.com/admin/#/collections/blog/newhttps://upica.netlify.com/admin/#/collections/blog/newhttps://upica.netlify.com/admin/#/collections/blog/newhttps://upica.netlify.com/admin/#/collections/blog/new
+**Installation**
+
+With npm:
+
+npm install --save gatsby-plugin-web-font-loader
+
+1. Or with Yarn:
+2. yarn add gatsby-plugin-web-font-loader
