@@ -26,6 +26,8 @@
     "react": "^16.2.0",
     "react-dom": "^16.4.1",
     "react-helmet": "^5.2.0",
+    "styled-components": "^3.4.9",
+    "uikit": "^3.0.0-rc.17",
     "uuid": "^3.2.1"
   },
   "keywords": [

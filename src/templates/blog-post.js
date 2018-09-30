@@ -23,7 +23,7 @@ export const BlogPostTemplate = ({
         <div className="columns">
           <div className="column is-10 is-offset-1">
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
-              {title}
+              {title}{image}
             </h1>
             <p>{description}</p>
             <PostContent content={content} />
@@ -66,6 +66,7 @@ const BlogPost = ({ data }) => {
         helmet={<Helmet title={`${post.frontmatter.title} | Blog`} />}
         tags={post.frontmatter.tags}
         title={post.frontmatter.title}
+        image={post.frontmatter.image}
       />
     </Layout>
   )
@@ -89,6 +90,7 @@ export const pageQuery = graphql`
         title
         description
         tags
+        image
       }
     }
   }
