@@ -5,7 +5,7 @@ import {
   graphql
 } from 'gatsby'
 import Layout from '../components/Layout'
-
+import Img from "gatsby-image"
  
 
 
@@ -20,7 +20,9 @@ export default class IndexPage extends React.Component {
         return ( < Layout > < section className = "section" > < div className = "container" > < div className = "content" > < h1 className = "has-text-weight-bold is-size-2" > Bien < /h1> < /div > {
               posts.map(({
                   node: post
-                }) => ( < div className = "content"
+                }) => (
+      
+                 < div className = "content"
                   style = {
                     {
                       border: '1px solid #eaecee',
@@ -29,7 +31,7 @@ export default class IndexPage extends React.Component {
                   }
                   key = {
                     post.id
-                  } > < p > < Link className = "has-text-primary"
+                  } > < p >  <img src={post.frontmatter.image}/> < Link className = "has-text-primary"
                   to = {
                     post.fields.slug
                   } > {
@@ -69,6 +71,7 @@ export default class IndexPage extends React.Component {
           }
           frontmatter {
             title
+            image
             templateKey
             date(formatString: "MMMM DD, YYYY")
           }
