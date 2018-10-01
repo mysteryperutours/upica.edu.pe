@@ -1,9 +1,9 @@
 ---
 templateKey: blog-post
 title: Test de Blog
-image: /img/chemex.jpg
+image: /img/foto.jpg
 date: 2018-09-13T16:53:09.029Z
-description: wooooooo
+description: wooooooo 
 tags:
   - new
 ---

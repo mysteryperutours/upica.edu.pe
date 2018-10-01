@@ -6,13 +6,15 @@ import { graphql, Link } from 'gatsby'
 import Layout from '../components/Layout'
 import Content, { HTMLContent } from '../components/Content'
 
+
+
 export const BlogPostTemplate = ({
   content,
   contentComponent,
   description,
   tags,
   title,
-  image,
+  thumbnail,
   helmet,
 }) => {
   const PostContent = contentComponent || Content
@@ -26,7 +28,7 @@ export const BlogPostTemplate = ({
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
               {title}
             </h1>
-             <img src={image}/>
+             <img alt="loco" src={thumbnail}/>
             <p>{description}</p>
             <PostContent content={content} />
             {tags && tags.length ? (
@@ -68,7 +70,7 @@ const BlogPost = ({ data }) => {
         helmet={<Helmet title={`${post.frontmatter.title} | Blog`} />}
         tags={post.frontmatter.tags}
         title={post.frontmatter.title}
-        image={post.frontmatter.image}
+        thumbnail={post.frontmatter.thumbnail}
       />
     </Layout>
   )
@@ -92,7 +94,7 @@ export const pageQuery = graphql`
         title
         description
         tags
-        image
+        thumbnail
       }
     }
   }
