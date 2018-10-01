@@ -1,19 +1,38 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+import { findFBVideo, FB_VIDEO_REGEX } from '../utils/facebook-video';
+import { findYTVideo, YT_VIDEO_REGEX } from '../utils/youtube-video';
 
-export const HTMLContent = ({ content, className }) => (
-  <div className={className} dangerouslySetInnerHTML={{ __html: content }} />
-)
-
-const Content = ({ content, className }) => (
+export default ({ content, className }) => (
   <div className={className}>{content}</div>
-)
+);
 
-Content.propTypes = {
-  content: PropTypes.node,
-  className: PropTypes.string,
-}
+export const HTMLContent = ({ content, className }) => {
+  /**
+   * Find facebook and youtube video ids and replace with player
+   * Syntax: [fb:videoId] & [yt:videoId]
+   */
+  const sections = content
+    .split(YT_VIDEO_REGEX)
+    .join('[section_break]')
+    .split(FB_VIDEO_REGEX)
+    .join('[section_break]')
+    .split('[section_break]');
+  const embedVideos = [];
+  embedVideos.push(findFBVideo(content));
+  embedVideos.push(findYTVideo(content));
+  const videos = embedVideos.filter(video => video.length);
 
-HTMLContent.propTypes = Content.propTypes
-
-export default Content
+  return (
+    <div className="text-section">
+      {sections.map((section, i) => (
+        <div key={i}>
+          <div
+            className={className}
+            dangerouslySetInnerHTML={{ __html: section }}
+          />
+          <center>{videos.length > i && videos[i]}</center>
+        </div>
+      ))}
+    </div>
+  );
+};

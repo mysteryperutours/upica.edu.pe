@@ -1,84 +1,108 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link, graphql } from "gatsby";
-import Layout from "../components/Layout";
-//
+import React from 'react';
+import Helmet from 'react-helmet';
+import Link from 'gatsby-link';
+import Img from 'gatsby-image';
+import Script from 'react-load-script';
+import graphql from 'graphql';
+import FeaturedPosts from '../components/FeaturedPosts';
+import MoreRecentPosts from '../components/MoreRecentPosts';
+import SocialMedia from '../components/SocialMedia';
+import RadioShow from '../components/RadioShow';
+import Footer from '../components/Footer';
+
 export default class IndexPage extends React.Component {
+  handleScriptLoad() {
+    if (typeof window !== `undefined` && window.netlifyIdentity) {
+      window.netlifyIdentity.on('init', user => {
+        if (!user) {
+          window.netlifyIdentity.on('login', () => {
+            document.location.href = '/admin/';
+          });
+        }
+      });
+    }
+    window.netlifyIdentity.init();
+  }
+
+  getFeaturedPosts(posts) {
+    return posts
+      .filter(
+        post =>
+          post.node.frontmatter.templateKey === 'interview-post' ||
+          post.node.frontmatter.templateKey === 'review-post'
+      )
+      .slice(0, 4);
+  }
+  getMoreRecentPosts(posts) {
+    return posts
+      .filter(
+        post =>
+          post.node.frontmatter.templateKey === 'interview-post' ||
+          post.node.frontmatter.templateKey === 'review-post'
+      )
+      .slice(4, 12);
+  }
+
   render() {
     const { data } = this.props;
     const { edges: posts } = data.allMarkdownRemark;
+    const meta = [
+      {
+        name: 'description',
+        content: `Sydney's voice of house and techno. Information on great parties & festivals to attend, plus interviews with top DJs & promoters, party reviews, podcasts and more!`,
+      },
+    ];
+
     return (
-      <Layout>
-        <section className="section">
-          <div className="container">
-            <div className="content">
-              <h1 className="has-text-weight-bold is-size-2"> Bien </h1>
-            </div>
-            {posts.map(({ node: post }) => (
-              <div
-                className="content"
-                style={{
-                  border: "1px solid #eaecee",
-                  padding: "2em 4em"
-                }}
-                key={post.id}
-              >
-                <p>
-                   
-          
-                  <Link className="has-text-primary" to={post.fields.slug}>
-                    {post.frontmatter.title}
-                  </Link>
-                  <span> & bull; </span>
-                  <small> {post.frontmatter.date} </small>
-                </p>
-                <p>
-                  {post.excerpt} <br /> <br />
-                  <Link className="button is-small" to={post.fields.slug}>
-                    Keep Reading→
-                  </Link>
-                </p>
+      <section className="section home">
+        <Helmet title={`Rave Reviewz Magazine`} meta={meta} />
+        <Script
+          url="https://identity.netlify.com/v1/netlify-identity-widget.js"
+          onLoad={() => this.handleScriptLoad()}
+        />
+        <div className="container">
+          <div className="content">
+            <FeaturedPosts posts={this.getFeaturedPosts(posts)} />
+
+            <div className="columns">
+              <div className="more-recent column is-two-thirds">
+                <h3>More recent articles</h3>
+                <MoreRecentPosts posts={this.getMoreRecentPosts(posts)} />
               </div>
-            ))}
+              <div className="social column is-one-third">
+                <h3>Social media</h3>
+                <SocialMedia />
+                <h3 style={{ marginTop: '6rem' }}>Rave Reviewz Radio Show</h3>
+                <RadioShow />
+              </div>
+            </div>
           </div>
-        </section>
-      </Layout>
+        </div>
+        <Footer />
+      </section>
     );
   }
 }
 
-IndexPage.propTypes = {
-  data: PropTypes.shape({
-    allMarkdownRemark: PropTypes.shape({
-      edges: PropTypes.array,
-    }),
-  }),
-}
-
 export const pageQuery = graphql`
-  {
-    allMarkdownRemark(
-      sort: { order: DESC, fields: [frontmatter___date] }
-      filter: { frontmatter: { templateKey: { eq: "blog-post" } } }
-      limit: 3
-    ) {
+  query IndexQuery {
+    allMarkdownRemark(sort: { order: DESC, fields: [frontmatter___date] }) {
       edges {
         node {
           excerpt(pruneLength: 400)
           id
-          fields {
-            slug
-          }
           frontmatter {
             title
+            description
             templateKey
-            date(formatString: "D. MMMM YYYY", locale: "cs")
-            image {
-                childImageSharp{
-                    sizes(maxWidth: 630) {
-                        ...GatsbyImageSharpSizes
-                    }
+            date(formatString: "MMMM DD, YYYY")
+            path
+            featuredImage {
+              childImageSharp {
+                sizes(maxWidth: 1240) {
+                  ...GatsbyImageSharpSizes
                 }
+              }
             }
           }
         }

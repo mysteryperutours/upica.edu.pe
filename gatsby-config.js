@@ -1,55 +1,54 @@
 module.exports = {
   siteMetadata: {
-    title: "Gatsby + Netlify CMS Starter"
+    title: 'Rave Reviewz Magazine',
+    siteUrl: 'https://magazine.ravereviewz.net',
   },
   plugins: [
+    'gatsby-plugin-react-helmet',
+    'gatsby-plugin-catch-links',
+    'gatsby-plugin-sass',
+    'gatsby-plugin-offline',
     {
-      resolve: "gatsby-plugin-nprogress",
-      options: {
-        color: "tomato",
-        showSpinner: true
-      }
-    },
-    "gatsby-plugin-react-helmet",
-    "gatsby-plugin-sass",
-    {
-      resolve: "gatsby-source-filesystem",
+      resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/src/pages`,
-        name: "pages"
-      }
+        name: 'pages',
+      },
     },
     {
-      resolve: "gatsby-source-filesystem",
+      resolve: 'gatsby-source-filesystem',
       options: {
-        path: `${__dirname}/src/img`,
-        name: "images"
-      }
+        path: `${__dirname}/static/img`,
+        name: 'images',
+      },
+    },
+    'gatsby-plugin-sharp',
+    'gatsby-transformer-sharp',
+    {
+      resolve: 'gatsby-transformer-remark',
+      options: {
+        plugins: [],
+      },
     },
     {
-      resolve: "gatsby-transformer-remark",
+      resolve: `gatsby-plugin-google-analytics`,
       options: {
-        plugins: [
-          {
-            resolve: `gatsby-remark-relative-images-v2`
-          },
-          {
-            resolve: `gatsby-remark-images`,
-            options: {
-              maxWidth: 300
-            }
-          }
-        ]
-      }
+        trackingId: 'UA-55031959-10',
+        head: true,
+      },
     },
-    "gatsby-plugin-sharp",
-    "gatsby-transformer-sharp",
     {
-      resolve: "gatsby-plugin-netlify-cms",
+      resolve: 'gatsby-plugin-netlify-cms',
       options: {
-        modulePath: `${__dirname}/src/cms/cms.js`
-      }
+        modulePath: `${__dirname}/src/cms/cms.js`,
+      },
     },
-    "gatsby-plugin-netlify" // make sure to keep it last in the array
-  ]
+    {
+      resolve: 'gatsby-plugin-nprogress',
+      options: {
+        color: '#9c5b9d',
+        showSpinner: false,
+      },
+    },
+  ],
 };
