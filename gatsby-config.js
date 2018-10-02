@@ -18,7 +18,7 @@ module.exports = {
       options: {
         cockpitConfig: {
           baseURL: 'http://upica.cf', // the url to you cockpit installation
-          accessToken: 'ef2d6caae0c3847ccae58f5427cabe', // you cockpit API key
+          accessToken: 'ab8cca9660b93894adbae32753ef72', // you cockpit API key
         },
       },
     },
